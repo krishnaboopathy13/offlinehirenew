@@ -8,6 +8,7 @@
 <link rel="manifest" href="manifest.json">
 <style>
 
+
 /* ═══════════════════════════════════════════════════════
    OFFLINEHIRE APP — CLAUDE DESIGN SYSTEM v8
    Refined · Premium · Dark + Light · Token-driven
@@ -148,7 +149,7 @@
 html{scroll-behavior:smooth;font-size:16px;-webkit-text-size-adjust:100%}
 body{
   font-family:var(--sans);background:var(--bg);color:var(--t0);
-  min-height:100dvh;overflow-x:hidden;
+  height:100dvh;overflow:hidden;
   -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
   line-height:1.55;
   transition:background .3s var(--ease),color .3s var(--ease);
@@ -188,8 +189,8 @@ img{max-width:100%;display:block}
 .offline-bar.show{transform:translateY(0)}
 
 /* ── VIEW SYSTEM ── */
-.view{display:none;min-height:100dvh;flex-direction:column}
-.view.active{display:flex}
+.view{display:none;flex-direction:column;height:100%;overflow:hidden}
+.view.active{display:flex;height:100%}
 
 /* ═══════════════════════════
    LOGIN
@@ -198,7 +199,7 @@ img{max-width:100%;display:block}
   align-items:center;justify-content:center;
   padding:2rem 1.25rem;position:relative;overflow:hidden;
   background:var(--bg);
-}
+;display:flex}
 
 /* Ambient bg effect */
 .login-view::before{
@@ -387,7 +388,7 @@ img{max-width:100%;display:block}
   box-shadow:0 1px 0 var(--bd),var(--sh0);
   transition:background .3s;
   backdrop-filter:blur(20px) saturate(180%);
-}
+;flex-shrink:0;position:sticky;top:0;z-index:100}
 .hdr-l{display:flex;align-items:center;gap:.5rem}
 .hdr-logo{
   width:28px;height:28px;border-radius:8px;
@@ -412,7 +413,7 @@ img{max-width:100%;display:block}
   background:var(--bg);border-bottom:1px solid var(--bd);
   overflow-x:auto;scrollbar-width:none;
   transition:background .3s;
-}
+;flex-shrink:0}
 .tabs::-webkit-scrollbar{display:none}
 .tab{
   flex:none;padding:.42rem .68rem;
@@ -433,7 +434,7 @@ img{max-width:100%;display:block}
 /* ═══════════════════════════
    CONTENT
    ═══════════════════════════ */
-.content{flex:1;padding:.9rem;overflow-y:auto;background:var(--bg);transition:background .3s}
+.content{flex:1;padding:.9rem;overflow-y:auto;overflow-x:hidden;background:var(--bg);transition:background .3s;min-height:0}
 .panel{display:none}
 .panel.on{display:block;animation:fadeUp .22s var(--ease) both}
 
@@ -976,11 +977,73 @@ tr:hover td{background:rgba(91,142,240,.025)}
 .bias-fill { height:100%; border-radius:3px; transition:width .6s }
 .bias-pct { font-family:var(--mn); font-size:.78rem; font-weight:700; min-width:40px; text-align:right }
 
+
+/* ── Claude AI Config ── */
+.ai-cfg-panel{
+  background:linear-gradient(135deg,rgba(91,142,240,.08) 0%,rgba(167,139,250,.05) 100%);
+  border:1.5px solid rgba(91,142,240,.28);border-radius:12px;
+  padding:1.25rem;margin-bottom:.75rem;
+}
+.ai-cfg-title{
+  display:flex;align-items:center;gap:.65rem;margin-bottom:1rem;
+}
+.ai-cfg-icon{
+  width:38px;height:38px;border-radius:10px;flex-shrink:0;
+  background:linear-gradient(145deg,var(--blue),var(--vio));
+  display:flex;align-items:center;justify-content:center;font-size:1.1rem;
+  box-shadow:0 3px 12px rgba(91,142,240,.35);
+}
+.ai-cfg-info{flex:1}
+.ai-cfg-info strong{font-size:.9rem;color:var(--t0);display:block}
+.ai-cfg-info span{font-size:.72rem;color:var(--t3)}
+.ai-status-pill{
+  display:inline-flex;align-items:center;gap:.35rem;
+  font-size:.7rem;font-family:var(--mn);font-weight:700;
+  padding:.22rem .65rem;border-radius:20px;white-space:nowrap;
+}
+.ai-status-pill.ok{background:var(--grnD);color:var(--grn);border:1px solid rgba(52,211,153,.25)}
+.ai-status-pill.off{background:var(--bg2);color:var(--t3);border:1px solid var(--bd)}
+.ai-status-pill.err{background:var(--redD);color:var(--red);border:1px solid rgba(248,113,113,.25)}
+.ai-key-wrap{position:relative;display:flex;align-items:center;margin-bottom:.65rem}
+.ai-key-inp{
+  flex:1;background:var(--bg);border:1px solid var(--bd1);border-radius:8px;
+  padding:.5rem .75rem;padding-right:80px;
+  font-size:.82rem;font-family:var(--mn);color:var(--t0);outline:none;
+  letter-spacing:.06em;transition:border-color .18s;
+}
+.ai-key-inp:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(91,142,240,.12)}
+.ai-key-inp::placeholder{letter-spacing:0;font-family:var(--sans);color:var(--t4)}
+.ai-key-btns{position:absolute;right:.4rem;display:flex;gap:.25rem}
+.ai-key-btns button{
+  padding:.28rem .55rem;font-size:.72rem;border-radius:5px;
+  background:var(--bg3);border:1px solid var(--bd);color:var(--t2);
+}
+.ai-key-btns button:hover{background:var(--bg4);color:var(--t0)}
+.model-row{display:flex;gap:.35rem;flex-wrap:wrap;margin-bottom:.65rem}
+.model-btn{
+  padding:.32rem .8rem;border-radius:20px;font-size:.74rem;font-weight:600;
+  border:1px solid var(--bd1);color:var(--t2);background:var(--bg2);cursor:pointer;
+  transition:all .18s;font-family:var(--mn);
+}
+.model-btn.on{
+  background:rgba(91,142,240,.15);color:var(--blue2);
+  border-color:rgba(91,142,240,.35);
+}
+.model-btn:hover:not(.on){color:var(--t1);border-color:var(--bd2)}
+.ai-cfg-actions{display:flex;gap:.5rem;align-items:center;flex-wrap:wrap}
+.ai-test-result{
+  margin-top:.65rem;padding:.6rem .85rem;border-radius:8px;
+  font-size:.82rem;font-weight:500;display:none;
+}
+.ai-test-result.ok{background:var(--grnD);border:1px solid rgba(52,211,153,.25);color:var(--grn)}
+.ai-test-result.err{background:var(--redD);border:1px solid rgba(248,113,113,.25);color:var(--red)}
+.ai-test-result.running{background:var(--blueD);border:1px solid var(--blueG);color:var(--blue2)}
+.key-hint{font-size:.72rem;color:var(--t4);font-family:var(--mn);margin-top:.3rem}
+
 </style>
-
-
 </head>
 <body>
+
 
 <div class="offline-bar" id="offlineBar">⚡ You're offline — all data saved locally</div>
 
@@ -988,7 +1051,7 @@ tr:hover td{background:rgba(91,142,240,.025)}
 <div class="view login-view active" id="loginView">
   <div class="login-glow"></div><div class="login-grid"></div>
   <div class="login-box">
-    <div class="logo-mark">D</div>
+    <div class="logo-mark">OH</div>
     <h1>OfflineHire</h1>
     <p class="sub">Offline-first walk-in drive management</p>
     <div class="login-card">
@@ -1155,34 +1218,102 @@ tr:hover td{background:rgba(91,142,240,.025)}
 
     <!-- SETTINGS -->
     <div class="panel" id="p-settings">
+
+      <!-- ══════════════════════════════════════════
+           CLAUDE AI CONFIGURATION — REQUIRED
+           ══════════════════════════════════════════ -->
+      <div class="ai-cfg-panel">
+        <div class="ai-cfg-title">
+          <div class="ai-cfg-icon">✨</div>
+          <div class="ai-cfg-info">
+            <strong>Claude AI — API Key Configuration</strong>
+            <span>Powers all 12 AI tools · Resume Scanner · Role Matcher · Questions · Feedback · Agent · and more</span>
+          </div>
+          <span class="ai-status-pill off" id="aiStatusPill">⬤ Not configured</span>
+        </div>
+
+        <div style="margin-bottom:.5rem">
+          <label class="fl" style="margin-bottom:.4rem">
+            Anthropic API Key <span class="req">*</span>
+            <span style="font-weight:400;color:var(--t4)"> — get yours at console.anthropic.com</span>
+          </label>
+          <div class="ai-key-wrap">
+            <input type="password" class="ai-key-inp" id="claudeApiKey"
+              placeholder="sk-ant-api03-…  (starts with sk-ant-)"
+              autocomplete="off" spellcheck="false">
+            <div class="ai-key-btns">
+              <button onclick="toggleClaudeKeyVisibility()" id="keyVisBtn">👁</button>
+              <button onclick="saveClaudeKey()" style="background:var(--blue);color:#fff;border-color:rgba(91,142,240,.4)">Save</button>
+            </div>
+          </div>
+          <div class="key-hint" id="keyHint">Key stored in IndexedDB on this device only — never sent anywhere except api.anthropic.com</div>
+        </div>
+
+        <div style="margin-bottom:.5rem">
+          <label class="fl" style="margin-bottom:.4rem">Model</label>
+          <div class="model-row" id="modelRow">
+            <button class="model-btn on" onclick="setAiModel('claude-sonnet-4-20250514',this)">claude-sonnet-4 ⚡ recommended</button>
+            <button class="model-btn" onclick="setAiModel('claude-opus-4-20250514',this)">claude-opus-4 💎 most capable</button>
+            <button class="model-btn" onclick="setAiModel('claude-haiku-4-5-20251001',this)">claude-haiku-4.5 🚀 fastest</button>
+          </div>
+        </div>
+
+        <div class="ai-cfg-actions">
+          <button class="btn btn-suc btn-sm" onclick="testClaudeConnection()">🧪 Test Connection</button>
+          <button class="btn btn-sm" onclick="clearClaudeKey()">🗑 Remove Key</button>
+          <span style="font-size:.72rem;color:var(--t4);font-family:var(--mn)">Current model: <span id="currentModelLabel">claude-sonnet-4-20250514</span></span>
+        </div>
+        <div class="ai-test-result" id="aiTestResult"></div>
+      </div>
+
+      <!-- Drive Config -->
       <div class="card" style="border-color:var(--blue);border-width:2px">
         <h3>🏢 Create / Edit Drive</h3>
-        <p style="font-size:.78rem;color:var(--t2);margin-bottom:1rem">Configure your walk-in drive details. Click <b>Save Drive</b> to persist changes.</p>
+        <p style="font-size:.78rem;color:var(--t2);margin-bottom:1rem">Configure your walk-in drive details.</p>
         <div class="fg"><label class="fl">Organization Name <span class="req">*</span></label><input type="text" class="fi" id="cfgOrg" placeholder="e.g. Acme Corp"></div>
         <div class="fg"><label class="fl">Drive Title <span class="req">*</span></label><input type="text" class="fi" id="cfgTitle" placeholder="e.g. Software Engineer Walk-in 2026"></div>
-        <div class="frow"><div class="fg"><label class="fl">Drive Date</label><input type="date" class="fi" id="cfgDate"></div><div class="fg"><label class="fl">Venue</label><input type="text" class="fi" id="cfgVenue" placeholder="e.g. Building A, Hall 3"></div></div>
-        <div class="frow"><div class="fg"><label class="fl">Start Time</label><input type="time" class="fi" id="cfgStartTime"></div><div class="fg"><label class="fl">End Time</label><input type="time" class="fi" id="cfgEndTime"></div></div>
-        <div class="fg"><label class="fl">Description / Instructions</label><textarea class="fta" id="cfgDesc" placeholder="e.g. Bring original certificates, laptop for coding round..."></textarea></div>
-        <div class="fg"><label class="fl">Contact Person</label><input type="text" class="fi" id="cfgContact" placeholder="e.g. Krishna Boopathy — +91 9071250522"></div>
-        <div class="fg"><label class="fl">Additional Positions (comma-separated, added to built-in IT/Non-IT roles)</label><input type="text" class="fi" id="cfgPos" placeholder="e.g. Trainee Analyst, SAP ABAP, Custom Role"></div>
+        <div class="frow">
+          <div class="fg"><label class="fl">Drive Date</label><input type="date" class="fi" id="cfgDate"></div>
+          <div class="fg"><label class="fl">Venue</label><input type="text" class="fi" id="cfgVenue" placeholder="e.g. Building A, Hall 3"></div>
+        </div>
+        <div class="frow">
+          <div class="fg"><label class="fl">Start Time</label><input type="time" class="fi" id="cfgStartTime"></div>
+          <div class="fg"><label class="fl">End Time</label><input type="time" class="fi" id="cfgEndTime"></div>
+        </div>
+        <div class="fg"><label class="fl">Description / Instructions</label><textarea class="fta" id="cfgDesc" placeholder="e.g. Bring original certificates, laptop..."></textarea></div>
+        <div class="fg"><label class="fl">Contact Person</label><input type="text" class="fi" id="cfgContact" placeholder="e.g. Krishna — +91 9071250522"></div>
+        <div class="fg"><label class="fl">Additional Positions (comma-separated)</label><input type="text" class="fi" id="cfgPos" placeholder="e.g. Trainee Analyst, SAP ABAP, Custom Role"></div>
         <div style="display:flex;gap:.5rem;margin-top:1rem">
           <button class="btn btn-pri" onclick="saveDrive()">💾 Save Drive</button>
-          <button class="btn btn-suc" onclick="saveDrive();aTab('share');toast('Drive saved! Now send invites','success')" style="font-size:.82rem">💾 Save & Send Invites →</button>
+          <button class="btn btn-suc" onclick="saveDrive();aTab('share');toast('Drive saved! Now send invites','success')" style="font-size:.82rem">💾 Save &amp; Send Invites →</button>
         </div>
-        <div id="driveSavedMsg" style="display:none;margin-top:.75rem;padding:.6rem .85rem;background:var(--grnD);border:1px solid rgba(52,211,153,.25);border-radius:8px;font-size:.82rem;color:var(--grn);font-weight:500">✓ Drive configuration saved successfully!</div>
+        <div id="driveSavedMsg" style="display:none;margin-top:.75rem;padding:.6rem .85rem;background:var(--grnD);border:1px solid rgba(52,211,153,.25);border-radius:8px;font-size:.82rem;color:var(--grn);font-weight:500">✓ Drive saved!</div>
       </div>
+
       <div class="card"><h3>📋 Form Fields</h3><p style="font-size:.78rem;color:var(--t3);margin-bottom:.75rem">Toggle which fields candidates see.</p><div id="fieldToggles"></div></div>
-      <div class="card"><h3>🔐 Admin Credentials</h3><p style="font-size:.78rem;color:var(--t3);margin-bottom:.75rem">Change your login email and password.</p>
+      <div class="card"><h3>🔐 Admin Credentials</h3>
+        <p style="font-size:.78rem;color:var(--t3);margin-bottom:.75rem">Change your login credentials.</p>
         <div class="fg"><label class="fl">Admin Email</label><input type="email" class="fi" id="cfgAdminEmail" oninput="saveAdminCreds()"></div>
         <div class="fg"><label class="fl">Admin Password</label><input type="text" class="fi" id="cfgAdminPass" oninput="saveAdminCreds()"></div>
         <div class="fg"><label class="fl">Security Desk PIN</label><input type="text" class="fi" id="cfgSecPin" placeholder="e.g. 1234" maxlength="6" oninput="saveAdminCreds()"></div>
       </div>
-      <div class="card"><h3>📢 Announcements</h3><p style="font-size:.78rem;color:var(--t3);margin-bottom:.75rem">Broadcast message to all candidate screens</p>
+      <div class="card"><h3>📢 Announcements</h3>
+        <p style="font-size:.78rem;color:var(--t3);margin-bottom:.75rem">Broadcast message to all candidate screens</p>
         <div class="fg"><label class="fl">Announcement Text</label><input type="text" class="fi" id="cfgAnnounce" placeholder="e.g. Round 1 starts at 10 AM in Hall B" oninput="saveAnnouncement()"></div>
-        <div style="display:flex;gap:.35rem"><button class="btn btn-pri btn-sm" onclick="saveAnnouncement();toast('Announcement live!','success')">📢 Broadcast</button><button class="btn btn-dan btn-sm" onclick="document.getElementById('cfgAnnounce').value='';saveAnnouncement();toast('Cleared','info')">Clear</button></div>
+        <div style="display:flex;gap:.35rem">
+          <button class="btn btn-pri btn-sm" onclick="saveAnnouncement();toast('Announcement live!','success')">📢 Broadcast</button>
+          <button class="btn btn-dan btn-sm" onclick="document.getElementById('cfgAnnounce').value='';saveAnnouncement();toast('Cleared','info')">Clear</button>
+        </div>
       </div>
-      <div class="card"><h3>⚠️ Data Management</h3><div style="display:flex;gap:.5rem;flex-wrap:wrap"><button class="btn btn-dan btn-sm" onclick="clearAll()">🗑 Clear All Candidates</button><button class="btn btn-sm" onclick="exportCSV()">📥 Export CSV</button><button class="btn btn-sm" onclick="exportJSON()">📥 Export JSON</button></div></div>
+      <div class="card"><h3>⚠️ Data Management</h3>
+        <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+          <button class="btn btn-dan btn-sm" onclick="clearAll()">🗑 Clear All Candidates</button>
+          <button class="btn btn-sm" onclick="exportCSV()">📥 Export CSV</button>
+          <button class="btn btn-sm" onclick="exportJSON()">📥 Export JSON</button>
+        </div>
+      </div>
     </div>
+
 
     <!-- AI QUEUE -->
     <div class="panel" id="p-aiqueue">
@@ -1718,7 +1849,214 @@ tr:hover td{background:rgba(91,142,240,.025)}
 
 <div class="toast-wrap" id="toastWrap"></div>
 
+
 <script>
+
+// ══════════════════════════════════════════════════════════════════
+// OFFLINEHIRE — CLAUDE API KEY MANAGEMENT  (enterprise, IndexedDB)
+// ══════════════════════════════════════════════════════════════════
+
+var AI_MODEL = 'claude-sonnet-4-20250514';
+var _ohKey   = ''; // runtime cache only — never in source
+
+// Internal: read key from IndexedDB
+function _ohLoadKey() {
+  if (!db) return;
+  try {
+    var tx  = db.transaction('config', 'readonly');
+    var req = tx.objectStore('config').get('oh_claude_key');
+    req.onsuccess = function () {
+      _ohKey = (req.result && req.result.v) ? req.result.v : '';
+      _ohUpdateUI();
+    };
+  } catch(e) {}
+}
+
+// Internal: read model from IndexedDB
+function _ohLoadModel() {
+  if (!db) return;
+  try {
+    var tx  = db.transaction('config', 'readonly');
+    var req = tx.objectStore('config').get('oh_ai_model');
+    req.onsuccess = function () {
+      if (req.result && req.result.v) {
+        AI_MODEL = req.result.v;
+        _ohSyncModelChips();
+        var lbl = document.getElementById('currentModelLabel');
+        if (lbl) lbl.textContent = AI_MODEL;
+      }
+    };
+  } catch(e) {}
+}
+
+// Internal: sync UI chip highlights
+function _ohSyncModelChips() {
+  document.querySelectorAll('.model-btn').forEach(function (btn) {
+    btn.classList.toggle('on', btn.onclick &&
+      btn.onclick.toString().indexOf(AI_MODEL) !== -1);
+  });
+}
+
+// Internal: update status pill
+function _ohUpdateUI() {
+  var pill = document.getElementById('aiStatusPill');
+  var hint = document.getElementById('keyHint');
+  if (!pill) return;
+  if (_ohKey) {
+    pill.className = 'ai-status-pill ok';
+    pill.textContent = '⬤ Configured · ' + AI_MODEL.split('-').slice(0, 3).join('-');
+    if (hint) hint.textContent =
+      'Key stored in IndexedDB — never leaves this device except to api.anthropic.com';
+  } else {
+    pill.className = 'ai-status-pill off';
+    pill.textContent = '⬤ Not configured';
+    if (hint) hint.textContent =
+      'Add your key above to enable all 12 AI tools';
+  }
+}
+
+// Public: toggle key field visibility
+function toggleClaudeKeyVisibility() {
+  var inp = document.getElementById('claudeApiKey');
+  var btn = document.getElementById('keyVisBtn');
+  if (!inp) return;
+  if (inp.type === 'password') {
+    inp.type = 'text';
+    if (_ohKey && inp.value.replace(/•/g, '').length === 0) inp.value = _ohKey;
+    btn.textContent = '🙈';
+  } else {
+    inp.type = 'password';
+    if (_ohKey) inp.value = '•'.repeat(Math.min(_ohKey.length, 40));
+    btn.textContent = '👁';
+  }
+}
+
+// Public: save key to IndexedDB
+function saveClaudeKey() {
+  var inp = document.getElementById('claudeApiKey');
+  if (!inp) return;
+  var raw = inp.value.trim();
+  // If user never edited the masked value, keep existing
+  if (raw && raw.replace(/•/g, '').length === 0) {
+    toast('No changes to save', 'info'); return;
+  }
+  if (!raw) { toast('Please enter your Anthropic API key', 'error'); return; }
+  if (!raw.startsWith('sk-')) {
+    toast('Key should start with sk-ant- or sk-', 'error'); return;
+  }
+  _ohKey = raw;
+  inp.value = '•'.repeat(Math.min(raw.length, 40));
+  inp.type  = 'password';
+  try {
+    var tx = db.transaction('config', 'readwrite');
+    tx.objectStore('config').put({ key: 'oh_claude_key', v: raw });
+    tx.oncomplete = function () {
+      toast('✓ Claude API key saved', 'success');
+      _ohUpdateUI();
+    };
+    tx.onerror = function () {
+      toast('Save failed — check browser storage', 'error');
+    };
+  } catch(e) {
+    toast('Could not save key: ' + e.message, 'error');
+  }
+}
+
+// Public: clear key
+function clearClaudeKey() {
+  _ohKey = '';
+  if (db) {
+    try {
+      db.transaction('config', 'readwrite').objectStore('config').delete('oh_claude_key');
+    } catch(e) {}
+  }
+  var inp = document.getElementById('claudeApiKey');
+  if (inp) { inp.value = ''; inp.type = 'password'; }
+  _ohUpdateUI();
+  toast('API key removed', 'info');
+}
+
+// Public: set model
+function setAiModel(model, btn) {
+  AI_MODEL = model;
+  document.querySelectorAll('.model-btn').forEach(function (b) {
+    b.classList.remove('on');
+  });
+  if (btn) btn.classList.add('on');
+  var lbl = document.getElementById('currentModelLabel');
+  if (lbl) lbl.textContent = model;
+  try {
+    db.transaction('config', 'readwrite')
+      .objectStore('config').put({ key: 'oh_ai_model', v: model });
+  } catch(e) {}
+  toast('Model: ' + model, 'info');
+  _ohUpdateUI();
+}
+
+// Public: test connection
+async function testClaudeConnection() {
+  var el = document.getElementById('aiTestResult');
+  if (!el) return;
+  if (!_ohKey) { toast('Save an API key first', 'error'); return; }
+  el.style.display = 'block';
+  el.className = 'ai-test-result running';
+  el.textContent = '⏳ Testing connection to Anthropic API…';
+  var result = await callClaude('Reply with exactly the word: CONNECTED', 10);
+  if (result && result.includes('CONNECTED')) {
+    el.className = 'ai-test-result ok';
+    el.textContent = '✅ Connection OK · Model: ' + AI_MODEL + ' · Ready to use all 12 AI tools';
+  } else {
+    el.className = 'ai-test-result err';
+    el.textContent = result === null
+      ? '❌ Connection failed. Check: (1) key is correct, (2) you have billing set up at console.anthropic.com'
+      : '⚠ Unexpected response: ' + String(result).slice(0, 80);
+  }
+}
+
+// ── PATCHED callClaude — uses _ohKey, full headers, proper errors ──
+async function callClaude(prompt, maxTokens) {
+  maxTokens = maxTokens || 600;
+  var key = _ohKey;
+  if (!key) {
+    toast('⚠ No API key — go to Settings → AI Configuration', 'error');
+    return null;
+  }
+  try {
+    var res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': key,
+        'anthropic-version': '2023-06-01',
+        'anthropic-dangerous-direct-browser-access': 'true'
+      },
+      body: JSON.stringify({
+        model: AI_MODEL,
+        max_tokens: maxTokens,
+        messages: [{ role: 'user', content: prompt }]
+      })
+    });
+    if (!res.ok) {
+      var errBody = await res.json().catch(function () { return {}; });
+      var errMsg = (errBody.error && errBody.error.message) || ('HTTP ' + res.status);
+      if (res.status === 401)
+        toast('❌ Invalid API key — check Settings → AI Configuration', 'error');
+      else if (res.status === 429)
+        toast('⚠ Rate limited — wait a moment and retry', 'error');
+      else
+        toast('AI error: ' + errMsg, 'error');
+      return null;
+    }
+    var data = await res.json();
+    return (data.content && data.content[0] && data.content[0].text) || '';
+  } catch (e) {
+    toast('Network error: ' + e.message, 'error');
+    return null;
+  }
+}
+
+
+
 // ═══ INDEXEDDB ═══
 var DB='OfflineHireDB',db=null;
 function openDB(){return new Promise(function(ok,no){var r=indexedDB.open(DB,3);r.onupgradeneeded=function(e){var d=e.target.result;if(!d.objectStoreNames.contains('candidates')){var s=d.createObjectStore('candidates',{keyPath:'id'});s.createIndex('token','token',{unique:true});s.createIndex('status','status')}if(!d.objectStoreNames.contains('config'))d.createObjectStore('config',{keyPath:'key'});if(!d.objectStoreNames.contains('apis'))d.createObjectStore('apis',{keyPath:'id'});if(!d.objectStoreNames.contains('recruiters'))d.createObjectStore('recruiters',{keyPath:'id'})};r.onsuccess=function(e){db=e.target.result;ok(db)};r.onerror=function(e){no(e.target.error)}})}
@@ -1933,7 +2271,7 @@ function getQueueNum(candidate){
 // ═══ ADMIN ═══
 function enterAdmin(){showView('adminView');document.getElementById('adminLabel').textContent=adminCreds.email;loadAdmin()}
 
-function loadAdmin(){renderStats();renderRecent();renderCandTbl();renderRecruiters();loadCfg();renderFieldToggles();renderApis();renderATS();renderHR();renderVMS();renderSharePage();genShareLink();renderQR();updateInviteDefaults();
+function loadAdmin(){_ohLoadKey();_ohLoadModel();renderStats();renderRecent();renderCandTbl();renderRecruiters();loadCfg();renderFieldToggles();renderApis();renderATS();renderHR();renderVMS();renderSharePage();genShareLink();renderQR();updateInviteDefaults();
   document.getElementById('cfgAdminEmail').value=adminCreds.email;document.getElementById('cfgAdminPass').value=adminCreds.password;document.getElementById('cfgSecPin').value=adminCreds.securityPin||'1234'}
 
 function aTab(t){
@@ -2704,27 +3042,9 @@ loadAdmin=function(){
 // V7: AI FEATURES — POWERED BY CLAUDE
 // ═══════════════════════════════════════════════════════════
 
-var AI_MODEL = 'claude-sonnet-4-20250514';
+/* AI_MODEL managed by key system */
 
-async function callClaude(prompt, maxTokens) {
-  maxTokens = maxTokens || 600;
-  try {
-    var res = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({
-        model: AI_MODEL,
-        max_tokens: maxTokens,
-        messages: [{role: 'user', content: prompt}]
-      })
-    });
-    if (!res.ok) throw new Error('API error ' + res.status);
-    var data = await res.json();
-    return (data.content && data.content[0] && data.content[0].text) || '';
-  } catch(e) {
-    return null;
-  }
-}
+/* callClaude replaced below */
 
 function aiLoading(elId) {
   var el = document.getElementById(elId);
@@ -3494,6 +3814,7 @@ function renderTranslation(){
     }
   }, 800);
 })();
+
 
 </script>
 </body>
